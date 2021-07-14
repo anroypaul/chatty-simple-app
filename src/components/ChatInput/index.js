@@ -1,8 +1,8 @@
-import React, { useState } from "react";
-import { useStateValue } from "../../StateContext";
-import "./style.css";
-import db from "../../firebase";
-import firebase from "firebase";
+import React, { useState } from 'react';
+import { useStateValue } from '../../StateContext';
+import './style.css';
+import db from '../../firebase';
+import firebase from 'firebase';
 
 function ChatInput({ channelName, channelId }) {
   const [input, setInput] = useState();
@@ -10,28 +10,39 @@ function ChatInput({ channelName, channelId }) {
 
   const sendMessage = (e) => {
     e.preventDefault();
-    console.log(channelId);
-    if (channelId) {
-      db.collection("rooms").doc(channelId).collection("messages").add({
-        message: input,
-        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
-        user: user?.email,
-        userImage: user?.photoURL,
-      });
+
+    if (!channelId) {
+      return false;
     }
+
+    db.collection('rooms').doc(channelId).collection('messages').add({
+      message: input,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+      user: user?.email,
+      userImage: user?.photoURL,
+    });
+
+    setInput('');
   };
 
   return (
     <div className="chatInput">
-      <form>
-        <input
-          placeholder={`Message #${channelName}`}
-          onChange={(e) => setInput(e.target.value)}
-        />
-        <button type="submit" onClick={sendMessage}>
-          SEND
-        </button>
-      </form>
+      {channelId !== null ? (
+        <>
+          <form>
+            <input
+              value={input}
+              placeholder={`Message #${channelName}`}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <button type="submit" onClick={sendMessage}>
+              SEND
+            </button>
+          </form>
+        </>
+      ) : (
+        <></>
+      )}
     </div>
   );
 }

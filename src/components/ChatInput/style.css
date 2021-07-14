@@ -16,6 +16,7 @@
     border: 1px solid gray;
     border-radius: 3px;
     padding: 20px;
+    outline: none;
 }
 
 .chatInput > form > button {

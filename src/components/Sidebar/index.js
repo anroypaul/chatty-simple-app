@@ -33,21 +33,21 @@ function Sidebar() {
           <h2>Chat</h2>
           <h3>
             <FiberManualRecordIcon />
-            {user?.email}
+            {user?.displayName}
           </h3>
         </div>
         <CreateIcon />
       </div>
-      <SidebarOption Icon={InsertCommentIcon} title="Threads" />
+      {/* <SidebarOption Icon={InsertCommentIcon} title="Threads" />
       <SidebarOption Icon={ExpandLessIcon} title="Show Less" />
       <hr />
       <SidebarOption Icon={ExpandMoreIcon} title="Channels" />
-      <SidebarOption title="Youtube" />
+      <SidebarOption title="Youtube" /> 
       <hr />
+      */}
       <SidebarOption Icon={AddIcon} addChannelOption title="Add Channel" />
 
       {/* Connect to db and list all the channels */}
-      {/* <SidebarOption ... /> */}
       {channels.map((channel) => (
         <SidebarOption title={channel.name} key={channel.id} id={channel.id} />
       ))}
